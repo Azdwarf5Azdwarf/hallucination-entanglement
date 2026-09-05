@@ -1,46 +1,41 @@
 #!/usr/bin/env julia
-# singlet.jl
-# One joint state. No packages beyond stdlib.
+# singlet.jl — one joint state, stdlib only
 #   julia learning/quantum/singlet.jl
 
 using LinearAlgebra
 
-# Computational basis for one qubit: |0> = up, |1> = down in this file.
-const UP   = [1.0 + 0im, 0.0 + 0im]
-const DOWN = [0.0 + 0im, 1.0 + 0im]
+const UP   = ComplexF64[1, 0]
+const DOWN = ComplexF64[0, 1]
 
-ketkron(a, b) = vec(a * transpose(b))  # |a> ⊗ |b> as a 4-vector
+# |A> ⊗ |B> in basis |00>, |01>, |10>, |11>
+ψ = (kron(UP, DOWN) - kron(DOWN, UP)) / √2
 
-# Singlet: (|01> - |10>) / √2
-ψ = (ketkron(UP, DOWN) - ketkron(DOWN, UP)) / √2
-
-println("singlet |ψ>")
+println("singlet |ψ> = (|01> - |10>)/\sqrt{2}")
 println(ψ)
 println("norm = ", round(norm(ψ); digits=12))
 
-ρ = ψ * ψ'                      # pure joint density matrix 4x4
+ρ = ψ * ψ'
 
-# Partial trace over Bob → Alice's reduced state.
-# Order is |Alice Bob> with basis 00,01,10,11.
-function partial_trace_B(ρ)
-    # reshape to (Alice, Bob, Alice', Bob') then trace Bob
-    t = reshape(ρ, 2, 2, 2, 2)          # A, B, A', B'
+# Partial trace over Bob. Index = 2*Alice + Bob + 1
+function partial_trace_B(ρ::AbstractMatrix)
     ρA = zeros(ComplexF64, 2, 2)
-    for b in 1:2
-        ρA += t[:, b, :, b]
+    for a in 0:1, ap in 0:1
+        s = zero(ComplexF64)
+        for b in 0:1
+            s += ρ[2a + b + 1, 2ap + b + 1]
+        end
+        ρA[a + 1, ap + 1] = s
     end
     return ρA
 end
 
 ρA = partial_trace_B(ρ)
 println()
-println("Alice reduced ρA (should be I/2 — maximally mixed)")
-display(ρA)
+println("Alice reduced ρA (want I/2 — maximally mixed)")
+show(stdout, "text/plain", ρA)
 println()
-println("Tr(ρA) = ", tr(ρA))
-println("purity Tr(ρA^2) = ", round(real(tr(ρA * ρA)); digits=8),
-        "   (0.5 means Alice alone has no definite spin)")
-
-# Joint purity stays 1. That is the whole joke of entanglement:
-# the pair is pure; each side looks like noise.
-println("joint purity Tr(ρ^2) = ", round(real(tr(ρ * ρ)); digits=8))
+println("Tr(ρA)        = ", round(real(tr(ρA)); digits=8))
+println("purity ρA     = ", round(real(tr(ρA * ρA)); digits=8), "  (0.5)")
+println("joint purity  = ", round(real(tr(ρ * ρ)); digits=8), "  (1.0)")
+println()
+println("pair is pure; each side looks like noise. that is entanglement.")
