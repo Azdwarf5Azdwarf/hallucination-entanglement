@@ -5,51 +5,41 @@ Seed token: **felix ketchup**
 Humans live in hallucination entanglement.
 Those loneliness falls outside and have a hard time climbing in.
 
-This repo is a scratch space for that sentence, plus the pieces that snapped onto it:
+Notes stay in `notes/`. The working path is now a study stack:
 
-- extended mind (when a tool actually joins the loop)
-- why some brains cannot couple to calendars / standard GUIs
-- quantum entanglement as *metaphor discipline*, not mysticism
-- anime / cartoon as a rendering engine that leaks into meatspace
+1. **Lisp** — symbols, lists, code-as-data
+2. **Julia** — quantum entanglement as linear algebra you can run
+3. **Julia** — machine learning (Flux) as the main lab language
 
-Not a manifesto that pretends to be physics. Physics stays physics. The leak is cultural and cognitive.
-
----
-
-## The philosophy in one pass
-
-Consensus reality is not raw footage. It is a shared, trained hallucination people stay *coupled* to. Call that the joint state.
-
-Kids are allowed to learn through cartoons. Adults pretend they graduated into realism. They did not. They switched animation styles: spreadsheets, clocks, nations, brands, dating scripts. Still drawings. Worse line quality.
-
-Anime is the adult-grade children's-movie technology. Same cheat codes — simplified faces, exaggerated cause and effect, episode-shaped time, moral physics you can *see* — aimed at nervous systems that already know the world is ugly and still need a readable model.
-
-When that engine leaks into reality, two things happen:
-
-1. People start running cartoon protocols in meatspace (gesture, fashion, romance, UI, work ritual, inner GUI).
-2. People who already had a private internal interface recognize the cartoon as closer to their native encoding than the official calendar-and-forms GUI.
-
-Cartoonization is not the opposite of learning. It is compression. Entertainment is just what we call compression when nobody is grading it.
-
-Loneliness, here, is decoherence: you drop out of the shared hallucination and the climb back in is expensive, because the official interface and your internal one do not speak.
+Physics stays physics. Cartoon/philosophy notes stay notes. Code does not claim to telepathically link anyone for five seconds.
 
 ---
 
-## Map
+## Study path
+
+| Step | File | Point |
+| --- | --- | --- |
+| 0 | [learning/00-path.md](learning/00-path.md) | order of operations |
+| 1 | [learning/lisp/symbols.lisp](learning/lisp/symbols.lisp) | what a symbol *is* |
+| 2 | [learning/quantum/singlet.jl](learning/quantum/singlet.jl) | one joint state, two addresses |
+| 3 | [learning/quantum/bell_chsh.jl](learning/quantum/bell_chsh.jl) | why local instructions lose |
+| 4 | [learning/ml/hello_flux.jl](learning/ml/hello_flux.jl) | Julia as the ML machine |
+
+Install: [Racket](https://racket-lang.org/) or SBCL for the Lisp file. Julia 1.10+ for the rest. Quantum files use only `LinearAlgebra` (stdlib). Flux file needs `Flux`.
+
+```bash
+julia learning/quantum/singlet.jl
+julia learning/quantum/bell_chsh.jl
+```
+
+---
+
+## Notes (the original pile)
 
 | File | What it holds |
 | --- | --- |
-| [SEED.md](SEED.md) | the saved token and the original line |
-| [notes/extended-mind.md](notes/extended-mind.md) | Clark/Chalmers, Otto's notebook, failed coupling |
-| [notes/entanglement.md](notes/entanglement.md) | real QM vs the metaphor we are allowed to steal |
-| [notes/cartoon-leak.md](notes/cartoon-leak.md) | anime, children's movies, adult cartoons, leak into reality |
-| [notes/internal-gui.md](notes/internal-gui.md) | time-blindness, unusable calendars, mapping the private interface |
-
----
-
-## Rule for this repo
-
-Do not smuggle faster-than-light feelings into Bell tests.
-Do not call a fandom a singlet state and stop thinking.
-Do use the *shape* of the physics: joint state, monogamy, decoherence, no free signal.
-Do treat cartoon style as a cognitive format, not as "fake therefore useless."
+| [SEED.md](SEED.md) | token + original line |
+| [notes/extended-mind.md](notes/extended-mind.md) | Clark/Chalmers, failed calendar coupling |
+| [notes/entanglement.md](notes/entanglement.md) | QM vs stolen metaphor |
+| [notes/cartoon-leak.md](notes/cartoon-leak.md) | anime / children's-movie engine |
+| [notes/internal-gui.md](notes/internal-gui.md) | private time interface |
